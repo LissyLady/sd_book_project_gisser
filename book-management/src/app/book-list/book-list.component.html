@@ -1,0 +1,39 @@
+<div>
+    <h2>Book List</h2>
+    <button (click)="selectBook(null)" [disabled]="selectedBookIndex !== null">Add Book</button>
+    <button (click)="editBook()" [disabled]="selectedBookIndex === null">Edit Book</button>
+    <button (click)="deleteBook()" [disabled]="selectedBookIndex === null">Delete Book</button>
+</div>
+
+<div>
+    <input type="text" placeholder="Search" [(ngModel)]="searchText" />
+    <select [(ngModel)]="sortOption">
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="isbn">ISBN</option>
+    </select>
+    <select [(ngModel)]="sortDirection">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Pages</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let book of filteredBooks; let i = index" [class.selected]="i === selectedBookIndex"
+            (click)="selectBook(i)">
+            <td>{{ book.title }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.pages }}</td>
+            <td>{{ book.author }}</td>
+        </tr>
+    </tbody>
+</table>
