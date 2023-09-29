@@ -1,0 +1,26 @@
+<h2>{{ book.isbn ? 'Edit Book' : 'Add Book' }}</h2>
+<div>
+    <label>Title *</label>
+    <input type="text" [(ngModel)]="book.title" required />
+</div>
+<div>
+    <label>ISBN *</label>
+    <input type="text" [(ngModel)]="book.isbn" [ngClass]="{ error: !isValidIsbn() }" required />
+    <span *ngIf="!isValidIsbn()" class="error-message">ISBN must be a number</span>
+</div>
+<div>
+    <label>Pages</label>
+    <input type="number" [(ngModel)]="book.pages" />
+</div>
+<div>
+    <label>Author *</label>
+    <input type="text" [(ngModel)]="book.author" required />
+</div>
+<div>
+    <label>Summary</label>
+    <textarea [(ngModel)]="book.summary"></textarea>
+</div>
+<div>
+    <button (click)="saveBook()">Save</button>
+    <button (click)="cancel()">Cancel</button>
+</div>
