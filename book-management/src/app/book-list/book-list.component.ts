@@ -20,4 +20,27 @@ export class BookListComponent implements OnInit {
     selectBook(index: number) {
         this.selectedBookIndex = index;
     }
+
+    searchText: string = '';
+    sortOption: string = 'title';
+    sortDirection: string = 'asc';
+
+    get filteredBooks(): Book[] {
+        return this.books
+            .filter((book) =>
+                book.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+                book.author.toLowerCase().includes(this.searchText.toLowerCase()) ||
+                book.isbn.includes(this.searchText)
+            )
+            .sort((a, b) => {
+                const valA = (a as any)[this.sortOption];
+                const valB = (b as any)[this.sortOption];
+
+                if (this.sortDirection === 'asc') {
+                    return valA.localeCompare(valB);
+                } else {
+                    return valB.localeCompare(valA);
+                }
+            });
+    }
 }
